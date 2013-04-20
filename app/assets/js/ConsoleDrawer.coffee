@@ -2,12 +2,12 @@ root = exports ? this
 
 root.ConsoleDrawer = class
 
-	draw: (turing) ->
+	draw: (band, bandIndex) ->
 	
 		cursor = ""
-		if turing.bands[0].position > 0
-			for i in [1..turing.bands[0].position] 	
+		if band.position > 0
+			for i in [1..band.position] 	
 				cursor += " "
 		cursor += "v"
 		console.log cursor
-		console.log turing.printAll().join " , "
+		console.log band.print()

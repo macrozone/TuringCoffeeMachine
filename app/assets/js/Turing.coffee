@@ -11,7 +11,6 @@ root.Turing = class
 		[@state, newBandWord, bandMoveWord] = @getFunction()
 		@writeBandColumn newBandWord
 		@moveBands bandMoveWord.split ""
-
 		@finished()
 	
 	printAll: ->

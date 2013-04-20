@@ -3,6 +3,7 @@
 #= require Band.coffee
 
 #= require ConsoleDrawer.coffee
+#= require CanvasDrawer.coffee
 $ ->
 	bands = []
 	bands.push new Band "0000000000000000000000000000000000011111111111111111111111111111111111"
@@ -35,7 +36,17 @@ $ ->
 
 	
 	window.engine = new Engine turing, 0
-	engine.addDrawer new ConsoleDrawer
+	#engine.addDrawer new ConsoleDrawer
+	canvas = document.getElementById("canvas")
+	colorSettings = 
+		cursorColor: "white"
+		colorMappings:
+			"0": "#FE906E"
+			"1": "#FEDC6E"
+			"X": "#6EFEDC"
+			"Y": "#6E88FE"
+
+	engine.addDrawer new CanvasDrawer canvas,10,10, colorSettings
 	engine.run()
 
 	

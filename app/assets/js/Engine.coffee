@@ -37,4 +37,5 @@ root.Engine = class
 		@draw()
 
 	draw: ->
-		drawer.draw @turing for drawer in @drawers
+		for drawer in @drawers
+			drawer.draw band, index for band, index in turing.bands

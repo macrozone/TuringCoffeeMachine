@@ -21,14 +21,20 @@ body
   background-color: $background-color
 
 body, legend, input, textarea, button
-  font-family: 'Helvetica Neue'
+  font-family: "Helvetica Neue", "Lucida Grande", "Arial";
   line-height: 1.4
-  color: #333
+  color: #ccc
 
 a:link, a:visited { color: deeppink }
 a:focus, a:hover, a:visited:hover { color: hotpink }
 
+h1,h2,h3
+  font-weight: normal
 
-#canvas
-  display: block
-  margin: 0 auto
+.draggableWindow
+  padding: 8px
+  border: 1px solid #666
+  position: absolute !important;
+  .title
+    text-align: center
+

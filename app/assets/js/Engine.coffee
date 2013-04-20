@@ -5,12 +5,16 @@ root.Engine = class
 	constructor: (@turing, @stepTime) ->
 		@drawers = []
 
+
 	setStepTime: (@stepTime) ->
 
-	addDrawer: (drawer) ->
-		@drawers.push drawer
+	addDrawer: (drawer, bandIndex) ->
+		unless @drawers[bandIndex]? 
+			@drawers[bandIndex] = []
+		@drawers[bandIndex].push drawer
 
 	run: ->
+		@halted = false
 		# draw initial
 		@draw()
 		if @stepTime < 0
@@ -18,24 +22,31 @@ root.Engine = class
 		else
 			@stepRun()
 
+	hasHalted: ->
+		@halted || @turing.finished() 
 
 	loopRun: ->
-		while not @turing.finished()
+		while not @hasHalted()
 			@step()
 		console.log "finished"
 
 	stepRun: =>
 
-		unless @turing.finished()
+		unless @hasHalted()
 			@step()
 			setTimeout @stepRun, @stepTime
 		else
 			console.log "finished"
 
 	step: ->
-		@turing.step()
-		@draw()
+		try
+			@turing.step()
+			@draw()
+		catch e
+			@halted = true
 
 	draw: ->
-		for drawer in @drawers
-			drawer.draw band, index for band, index in turing.bands
+		for tape, index in @turing.tapes
+			if @drawers[index]?
+				for drawer in @drawers[index]
+					drawer.draw tape, index

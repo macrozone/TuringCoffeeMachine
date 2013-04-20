@@ -1,5 +1,5 @@
 root = exports ? this
-root.Band = class
+root.Tape = class
 
 
 	constructor: (startWord)->
@@ -36,4 +36,6 @@ root.Band = class
 
 	sanitizeChar: (char) ->
 		if char != "" then char else undefined
-			
+
+	getWidth: ->
+		@leftPart.length + @rightPart.length

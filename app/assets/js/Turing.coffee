@@ -1,45 +1,46 @@
-#= require Band.coffee
+#= require Tape.coffee
 
 root = exports ? this
 root.Turing = class
 
-	constructor: (@bands, @functions, @endState) ->
+	constructor: (@tapes, @functions, @endState) ->
 		@state = 0
 
 	step: ->
 		
-		[@state, newBandWord, bandMoveWord] = @getFunction()
-		@writeBandColumn newBandWord
-		@moveBands bandMoveWord.split ""
+		[@state, newTapeWord, tapeMoveWord] = @getFunction()
+		@writeTapeColumn newTapeWord
+		@moveTapes tapeMoveWord.split ""
 		@finished()
+
 	
 	printAll: ->
-		(band.print() for band in @bands)
+		(tape.print() for tape in @tapes)
 	printAllAsArrays: ->
-		(band.printArray() for band in @bands)
+		(tape.printArray() for tape in @tapes)
 
-	printBandColumn: ->
-		(band.read() ? " " for band in @bands).join ""
+	printTapeColumn: ->
+		(tape.read() ? " " for tape in @tapes).join ""
 
-	writeBandColumn: (word) ->
+	writeTapeColumn: (word) ->
 		for char, i in word.split ""
 			if char == "" 
 				char = undefined
-			@bands[i].write char 
+			@tapes[i].write char 
 
 	finished: ->
 		@state == @endState
 
 
-	moveBands: (bandMoves) ->
-		for move,i in bandMoves
+	moveTapes: (tapeMoves) ->
+		for move,i in tapeMoves
 			switch move
-				when "L" then @bands[i].left()
-				when "R" then @bands[i].right()
+				when "L" then @tapes[i].left()
+				when "R" then @tapes[i].right()
 	
 	getFunction: ->
-		#console.log @functions, @state, @functions[@state], @printBandColumn()
-		@functions[@state][@printBandColumn()]
+		#console.log @functions, @state, @functions[@state], @printTapeColumn()
+		@functions[@state][@printTapeColumn()]
 
 
 

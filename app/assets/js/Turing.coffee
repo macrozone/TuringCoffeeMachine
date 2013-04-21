@@ -3,8 +3,14 @@
 root = exports ? this
 root.Turing = class
 
-	constructor: (@tapes, @functions, @endState) ->
+	defaults:
+		endState: 0
+		functions: []
+	constructor: (mashineSettings) ->
+		@mashineSettings = $.extend true, {}, @defaults, mashineSettings
 		@state = 0
+
+		@tapes = (new Tape word for word in @mashineSettings.tapesContent)
 
 	step: ->
 		
@@ -29,7 +35,7 @@ root.Turing = class
 			@tapes[i].write char 
 
 	finished: ->
-		@state == @endState
+		@state == @mashineSettings.endState
 
 
 	moveTapes: (tapeMoves) ->
@@ -40,7 +46,7 @@ root.Turing = class
 	
 	getFunction: ->
 		#console.log @functions, @state, @functions[@state], @printTapeColumn()
-		@functions[@state][@printTapeColumn()]
+		@mashineSettings.functions[@state][@printTapeColumn()]
 
 
 

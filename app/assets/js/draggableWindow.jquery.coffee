@@ -9,13 +9,13 @@ methods =
 		settings = $.extend defaults, options
 		$this = $ this
 		$this.data pluginName, settings
-
+		$this.css "z-index", 2000
 		$this.draggable()
 		$this.addClass pluginName
 		$this.css "left", settings.xOffset
 		$this.css "top", settings.yOffset
-		$this.on "click", ->
-			$("."+pluginName).css "z-index", 1050
+		$this.on "mousedown", ->
+			$("."+pluginName).css "z-index", 1900
 			$(@).css "z-index", 2000	
 
  

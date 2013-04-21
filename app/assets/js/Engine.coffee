@@ -1,49 +1,83 @@
 root = exports ? this
 root.Engine = class
 
+	defaults:
+		speed: 0
+		
 
-	constructor: (@turing, @stepTime) ->
+	constructor: (@turing, settings) ->
+		@setSettings settings
 		@drawers = []
+		@haltListener = []
+		@stepListener = []
+		@invalidState = false
 
+	setSettings: (settings) ->
+		@settings = $.extend true, {}, @defaults, settings
 
-	setStepTime: (@stepTime) ->
+	addHaltListener: (l) ->
+		@haltListener.push l
+
+	addStepListener: (l) ->
+		@stepListener.push l
+
 
 	addDrawer: (drawer, bandIndex) ->
 		unless @drawers[bandIndex]? 
 			@drawers[bandIndex] = []
 		@drawers[bandIndex].push drawer
 
+	
+
 	run: ->
-		@halted = false
-		# draw initial
-		@draw()
-		if @stepTime < 0
+		@paused = false
+		
+		if @settings.speed < 0
 			@loopRun()
 		else
 			@stepRun()
 
+	pause: ->
+		@paused = true
+
 	hasHalted: ->
-		@halted || @turing.finished() 
+		halted = @paused || @invalidState || @turing.finished() 
+		if @paused
+			haltState = "paused"
+		if @invalidState
+			haltState = "invalid state"
+		if @turing.finished()
+			haltState = "finished"
+		
+		if halted
+			l(haltState) for l in @haltListener
+		halted
+
 
 	loopRun: ->
 		while not @hasHalted()
 			@step()
-		console.log "finished"
 
 	stepRun: =>
 
 		unless @hasHalted()
+			l() for l in @stepListener
 			@step()
-			setTimeout @stepRun, @stepTime
-		else
-			console.log "finished"
+			setTimeout @stepRun, @getStepTimeout()
+
+	getStepTimeout: ->
+		Math.floor 1000/@settings.speed
 
 	step: ->
 		try
-			@turing.step()
-			@draw()
+			multiSteps = Math.floor @settings.speed /1000
+			for i in [0..multiSteps-1]
+				@turing.step()
+				@draw()
+				if @hasHalted() 
+					break
 		catch e
-			@halted = true
+			@invalidState = true
 
 	draw: ->
 		for tape, index in @turing.tapes

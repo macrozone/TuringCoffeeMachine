@@ -72,7 +72,7 @@ $ ->
 
 	addition = 
 		tapesContent: [
-			" 00000 000"
+			"     00000 000000000    "
 		]
 		endState: 5
 		functions: [
@@ -86,9 +86,7 @@ $ ->
 
 	window.turing = new Turing sample3
 
-
-	
-	window.engine = new Engine turing, {speed: 10}
+	window.engine = new Engine turing
 	#engine.addDrawer new ConsoleDrawer
 	canvas = document.getElementById("canvas")
 	colorSettings =
@@ -112,15 +110,12 @@ $ ->
 		title: "Tape 2"
 		
 		colorSettings: colorSettings
-		pixelPadding: 1
 		windowPositionX: 800
-		historyScale: 3
+		historyScale: 10
 	settings3 = 
 
 		title: "Tape 3"
-		
 		colorSettings: colorSettings
-		pixelPadding: 1
 		windowPositionX: 1100
 		historyScale: 100
 
@@ -134,6 +129,6 @@ $ ->
 
 	engine.draw()
 
-	new ColorMappingWindow colorSettings.colorMappings, {title: "Colors", windowPositionY: 150}
+	new ColorMappingWindow colorSettings.colorMappings, {title: "Colors", windowPositionY: 180}
 	
 

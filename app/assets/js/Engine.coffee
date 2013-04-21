@@ -2,7 +2,7 @@ root = exports ? this
 root.Engine = class
 
 	defaults:
-		speed: 0
+		speed: 100
 		
 
 	constructor: (@turing, settings) ->

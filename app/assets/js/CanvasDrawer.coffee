@@ -51,7 +51,7 @@ root.CanvasDrawer = class extends root.DragableWindow
 		canvas = @cursorCanvas
 		@checkCanvasBounds canvas, tape.getWidth(), 1
 		@clearRow canvas, 0
-		@drawPixel canvas, tape.position, 0, @settings.colorSettings.cursorColor
+		@drawCharPixel canvas, tape.position, 0, @settings.colorSettings.cursorColor, "▼"
 
 	drawContent: (tape) ->
 		canvas = @contentCanvas

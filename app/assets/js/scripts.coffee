@@ -72,7 +72,7 @@ $ ->
 
 	addition = 
 		tapesContent: [
-			"     00000 000000000    "
+			"00000 000000000"
 		]
 		endState: 5
 		functions: [
@@ -83,10 +83,30 @@ $ ->
 			(" ": [5, " ", "R"], "0": [4, "0", "L"])
 		]
 
+	multiplication = 
+		tapesContent: [
+			"000 0000"
+		]
+		endState: 13
+		functions: [
+			(" ": [0 , " ", "R"], "0": [1 , " ", "R"])
+			(" ": [2 , " ", "R"], "0": [1 , "0", "R"])
+			(" ": [13, " ", "L"], "0": [3 , " ", "R"])
+			(" ": [4 , " ", "R"], "0": [3 , "0", "R"])
+			(" ": [5 , "0", "L"], "0": [4 , "0", "R"])
+			(" ": [6 , " ", "L"], "0": [5 , "0", "L"])
+			(" ": [8 , "0", "L"], "0": [7 , "0", "L"])
+			(" ": [2 , "0", "R"], "0": [7 , "0", "L"])
+			(" ": [9 , " ", "L"], "0": [8 , "0", "L"])
+			(" ": [11, " ", "R"], "0": [10, "0", "L"])
+			(" ": [0 , " ", "R"], "0": [10, "0", "L"])
+			(" ": [11, " ", "R"], "0": [12, " ", "R"])
+			(" ": [13, " ", "R"], "0": [12, " ", "R"])
+		]
 
-	window.turing = new Turing sample3
+	turing = new Turing multiplication
 
-	window.engine = new Engine turing
+	engine = new Engine turing
 	#engine.addDrawer new ConsoleDrawer
 	canvas = document.getElementById("canvas")
 	colorSettings =
@@ -121,9 +141,9 @@ $ ->
 
 	
 
-	engine.addDrawer (canvasDrawer =  new CanvasDrawer2 settings1), 0
-	engine.addDrawer (canvasDrawer =  new CanvasDrawer2 settings2), 1
-	engine.addDrawer (canvasDrawer =  new CanvasDrawer2 settings3), 2
+	engine.addDrawer (new CanvasDrawer2 settings1), 0
+	engine.addDrawer (new CanvasDrawer2 settings2), 1
+	engine.addDrawer (new CanvasDrawer2 settings3), 2
 
 	controller = new Controller engine, title: "Controller"
 

@@ -127,14 +127,14 @@ $ ->
 		pixelDrawMode: "char"
 	settings2 = 
 
-		title: "Tape 1 - scaled"
+		title: "Tape 1 - 10x"
 		
 		colorSettings: colorSettings
 		windowPositionX: 800
 		historyScale: 10
 	settings3 = 
 
-		title: "Tape 1 - scaled"
+		title: "Tape 1 - 100x"
 		colorSettings: colorSettings
 		windowPositionX: 1100
 		historyScale: 100

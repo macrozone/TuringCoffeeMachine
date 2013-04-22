@@ -85,7 +85,7 @@ $ ->
 
 	multiplication = 
 		tapesContent: [
-			"000 0000"
+			"0000000 00000"
 		]
 		endState: 13
 		functions: [

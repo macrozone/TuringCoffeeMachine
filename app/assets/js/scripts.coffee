@@ -127,14 +127,14 @@ $ ->
 		pixelDrawMode: "char"
 	settings2 = 
 
-		title: "Tape 2"
+		title: "Tape 1 - scaled"
 		
 		colorSettings: colorSettings
 		windowPositionX: 800
 		historyScale: 10
 	settings3 = 
 
-		title: "Tape 3"
+		title: "Tape 1 - scaled"
 		colorSettings: colorSettings
 		windowPositionX: 1100
 		historyScale: 100
@@ -142,8 +142,8 @@ $ ->
 	
 
 	engine.addDrawer (new CanvasDrawer2 settings1), 0
-	engine.addDrawer (new CanvasDrawer2 settings2), 1
-	engine.addDrawer (new CanvasDrawer2 settings3), 2
+	engine.addDrawer (new CanvasDrawer2 settings2), 0
+	engine.addDrawer (new CanvasDrawer2 settings3), 0
 
 	controller = new Controller engine, title: "Controller"
 

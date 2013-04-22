@@ -33,7 +33,6 @@ root.CanvasDrawer = class extends root.DragableWindow
 
 	draw: (tape, tapeIndex) ->
 	
-		
 		@drawCursor tape
 		@drawContent tape
 		@counter++
@@ -49,7 +48,7 @@ root.CanvasDrawer = class extends root.DragableWindow
 
 	drawCursor: (tape) ->
 		canvas = @cursorCanvas
-		@checkCanvasBounds canvas, tape.getWidth(), 1
+		@checkCanvasBounds canvas, tape.position+1, 1
 		@clearRow canvas, 0
 		@drawCharPixel canvas, tape.position, 0, @settings.colorSettings.cursorColor, "▼"
 
@@ -73,15 +72,17 @@ root.CanvasDrawer = class extends root.DragableWindow
 
 	drawRow: (canvas, tape, row) ->
 		for char, x in tape
-
-				if @settings.colorSettings.colorMappings[char]?
-					@drawContentPixel canvas, x, row, char
-				else
-					@clearPixel canvas, x,row
+			if char != " "
+				@drawContentPixel canvas, x, row, char
+			else
+				@clearPixel canvas, x,row
+				
+					
 
 					
 	getColorForChar: (char, y) ->
-		color = @settings.colorSettings.colorMappings[char]
+		color = @settings.colorSettings.colorMappings[char] ? @settings.colorSettings.colorMappings.fallback
+		
 		progress = y/@settings.historySize
 	
 		if progress > @settings.colorSettings.fadeTrashhold

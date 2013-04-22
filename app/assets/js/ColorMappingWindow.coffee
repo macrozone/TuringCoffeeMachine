@@ -4,7 +4,7 @@ root = exports ? this
 
 root.ColorMappingWindow = class extends root.DragableWindow
 	
-
+	
 	constructor: (@mapping, windowSettings) ->
 		super windowSettings
 		

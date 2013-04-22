@@ -8,6 +8,7 @@
 #= require ConsoleDrawer.coffee
 #= require CanvasDrawer.coffee
 #= require CanvasDrawer2.coffee
+#= require CharCounterDrawer.coffee
 
 $ ->
 
@@ -90,6 +91,7 @@ $ ->
 			"1": "#FEDC6E"
 			"X": "#6EFEDC"
 			"Y": "#6E88FE"
+			fallback: "#fff"
 
 	settings1 = 
 		title: "Tape 1"
@@ -116,7 +118,7 @@ $ ->
 
 	multiplication = 
 		tapesContent: [
-			"00000000 000000"
+			"000000 000000000"
 		]
 		endState: 13
 		functions: [
@@ -143,6 +145,7 @@ $ ->
 	engine.addDrawer (new CanvasDrawer2 settings1), 0
 	engine.addDrawer (new CanvasDrawer2 settings2), 0
 	engine.addDrawer (new CanvasDrawer2 settings3), 0
+	engine.addDrawer (new CharCounterDrawer colorSettings: colorSettings,  windowPositionY: 280, title: "Char-Counter Tape 1"), 0
 
 	new Controller engine, title: "Controller"
 

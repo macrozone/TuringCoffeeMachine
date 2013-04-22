@@ -11,6 +11,7 @@ root.Engine = class
 		@haltListener = []
 		@stepListener = []
 		@invalidState = false
+		@stepCounter = 0
 
 	setSettings: (settings) ->
 		@settings = $.extend true, {}, @defaults, settings
@@ -42,16 +43,21 @@ root.Engine = class
 
 	hasHalted: ->
 		halted = @paused || @invalidState || @turing.finished() 
-		if @paused
-			haltState = "paused"
-		if @invalidState
-			haltState = "invalid state"
-		if @turing.finished()
-			haltState = "finished"
 		
 		if halted
-			l(haltState) for l in @haltListener
+			l @getFullState()  for l in @haltListener
 		halted
+
+	getEngineState: ->
+		return "paused" if @paused
+		return "invalid state" if @invalidState
+		return "finished" if @turing.finished()
+		return "running"
+		
+	getFullState: ->
+		engineState: @getEngineState()
+		mashineState: @turing.state
+		step: @stepCounter
 
 
 	loopRun: ->
@@ -61,7 +67,6 @@ root.Engine = class
 	stepRun: =>
 
 		unless @hasHalted()
-			l() for l in @stepListener
 			@step()
 			setTimeout @stepRun, @getStepTimeout()
 
@@ -71,11 +76,17 @@ root.Engine = class
 	step: ->
 		try
 			multiSteps = Math.floor @settings.speed /1000
+			# speeds >= 2000 will result in multiple executions per event-loop
 			for i in [0..multiSteps-1]
 				@turing.step()
 				@draw()
+				@stepCounter++
+				l @getFullState() for l in @stepListener
+				
 				if @hasHalted() 
 					break
+			
+			
 		catch e
 			@invalidState = true
 
@@ -84,3 +95,6 @@ root.Engine = class
 			if @drawers[index]?
 				for drawer in @drawers[index]
 					drawer.draw tape, index
+
+
+

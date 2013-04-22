@@ -8,11 +8,13 @@
 #= require ConsoleDrawer.coffee
 #= require CanvasDrawer.coffee
 #= require CanvasDrawer2.coffee
-#= require CharCounterDrawer.coffee
+
+#= require Setup.coffee
+#= require SingleTapeSetup.coffee
 
 $ ->
 
-
+	###
 	sample1 = 
 		tapesContent: [
 			"000000000000000000000000000000000000000000000000111111111111111111111111111111111111111111111111"
@@ -116,6 +118,26 @@ $ ->
 		windowPositionX: 1100
 		historyScale: 100
 
+	
+
+	turing = new Turing multiplication
+
+	engine = new Engine turing
+	
+
+	engine.addDrawer (new CanvasDrawer2 settings1), 0
+	engine.addDrawer (new CanvasDrawer2 settings2), 0
+	engine.addDrawer (new CanvasDrawer2 settings3), 0
+	engine.addDrawer (new CharCounterDrawer colorSettings: colorSettings,  windowPositionY: 280, title: "Char-Counter Tape 1"), 0
+
+	new Controller engine, title: "Controller"
+
+	new ColorMappingWindow colorSettings.colorMappings, {title: "Colors", windowPositionY: 180}
+
+
+	engine.draw() # draw content
+	###
+
 	multiplication = 
 		tapesContent: [
 			"000000 000000000"
@@ -136,24 +158,8 @@ $ ->
 			(" ": [11, " ", "R"], "0": [12, " ", "R"])
 			(" ": [13, " ", "R"], "0": [12, " ", "R"])
 		]
-
-	turing = new Turing multiplication
-
-	engine = new Engine turing
-	
-
-	engine.addDrawer (new CanvasDrawer2 settings1), 0
-	engine.addDrawer (new CanvasDrawer2 settings2), 0
-	engine.addDrawer (new CanvasDrawer2 settings3), 0
-	engine.addDrawer (new CharCounterDrawer colorSettings: colorSettings,  windowPositionY: 280, title: "Char-Counter Tape 1"), 0
-
-	new Controller engine, title: "Controller"
-
-	new ColorMappingWindow colorSettings.colorMappings, {title: "Colors", windowPositionY: 180}
-
-
-	engine.draw() # draw content
-
+	setup = new SingleTapeSetup mashine: multiplication
+	setup.init()
 	
 	
 

@@ -8,7 +8,7 @@
 #= require ConsoleDrawer.coffee
 #= require CanvasDrawer.coffee
 #= require CanvasDrawer2.coffee
-#= require FunctionRepo.coffee
+
 $ ->
 
 
@@ -83,32 +83,7 @@ $ ->
 			(" ": [5, " ", "R"], "0": [4, "0", "L"])
 		]
 
-	multiplication = 
-		tapesContent: [
-			"0000000 00000"
-		]
-		endState: 13
-		functions: [
-			(" ": [0 , " ", "R"], "0": [1 , " ", "R"])
-			(" ": [2 , " ", "R"], "0": [1 , "0", "R"])
-			(" ": [13, " ", "L"], "0": [3 , " ", "R"])
-			(" ": [4 , " ", "R"], "0": [3 , "0", "R"])
-			(" ": [5 , "0", "L"], "0": [4 , "0", "R"])
-			(" ": [6 , " ", "L"], "0": [5 , "0", "L"])
-			(" ": [8 , "0", "L"], "0": [7 , "0", "L"])
-			(" ": [2 , "0", "R"], "0": [7 , "0", "L"])
-			(" ": [9 , " ", "L"], "0": [8 , "0", "L"])
-			(" ": [11, " ", "R"], "0": [10, "0", "L"])
-			(" ": [0 , " ", "R"], "0": [10, "0", "L"])
-			(" ": [11, " ", "R"], "0": [12, " ", "R"])
-			(" ": [13, " ", "R"], "0": [12, " ", "R"])
-		]
 
-	turing = new Turing multiplication
-
-	engine = new Engine turing
-	#engine.addDrawer new ConsoleDrawer
-	canvas = document.getElementById("canvas")
 	colorSettings =
 		colorMappings:
 			"0": "#FE906E"
@@ -139,16 +114,43 @@ $ ->
 		windowPositionX: 1100
 		historyScale: 100
 
+	multiplication = 
+		tapesContent: [
+			"00000000 000000"
+		]
+		endState: 13
+		functions: [
+			(" ": [0 , " ", "R"], "0": [1 , " ", "R"])
+			(" ": [2 , " ", "R"], "0": [1 , "0", "R"])
+			(" ": [13, " ", "L"], "0": [3 , " ", "R"])
+			(" ": [4 , " ", "R"], "0": [3 , "0", "R"])
+			(" ": [5 , "0", "L"], "0": [4 , "0", "R"])
+			(" ": [6 , " ", "L"], "0": [5 , "0", "L"])
+			(" ": [8 , "0", "L"], "0": [7 , "0", "L"])
+			(" ": [2 , "0", "R"], "0": [7 , "0", "L"])
+			(" ": [9 , " ", "L"], "0": [8 , "0", "L"])
+			(" ": [11, " ", "R"], "0": [10, "0", "L"])
+			(" ": [0 , " ", "R"], "0": [10, "0", "L"])
+			(" ": [11, " ", "R"], "0": [12, " ", "R"])
+			(" ": [13, " ", "R"], "0": [12, " ", "R"])
+		]
+
+	turing = new Turing multiplication
+
+	engine = new Engine turing
 	
 
 	engine.addDrawer (new CanvasDrawer2 settings1), 0
 	engine.addDrawer (new CanvasDrawer2 settings2), 0
 	engine.addDrawer (new CanvasDrawer2 settings3), 0
 
-	controller = new Controller engine, title: "Controller"
-
-	engine.draw()
+	new Controller engine, title: "Controller"
 
 	new ColorMappingWindow colorSettings.colorMappings, {title: "Colors", windowPositionY: 180}
+
+
+	engine.draw() # draw content
+
+	
 	
 

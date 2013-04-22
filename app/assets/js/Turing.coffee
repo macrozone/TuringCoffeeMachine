@@ -18,7 +18,6 @@ root.Turing = class
 		@writeTapeColumn newTapeWord
 		@moveTapes tapeMoveWord.split ""
 		@finished()
-
 	
 	printAll: ->
 		(tape.print() for tape in @tapes)

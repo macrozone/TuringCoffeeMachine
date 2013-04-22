@@ -32,19 +32,12 @@ root.Setup = class
 			2: []
 			
 
-		mashine: 
-			tapesContent: [
-			
-			]
-			endState: 0
-			functions: [
-				
-			]
+		mashine: {}
 
 	constructor: (settings) ->
 		
 		@settings = $.extend true, {}, @defaultSetup, settings
-		console.log @defaultSetup, @settings
+		
 	
 	init: ->
 		@turing = new Turing @settings.mashine

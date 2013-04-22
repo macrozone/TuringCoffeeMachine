@@ -3,12 +3,15 @@
 root = exports ? this
 root.Turing = class
 
-	defaults:
-		endState: 0
-		functions: []
+	
 	constructor: (mashineSettings) ->
-		@mashineSettings = $.extend true, {}, @defaults, mashineSettings
-		@state = 0
+		defaults = 
+			startState: 0
+			endState: "end"
+			functions: []
+		@mashineSettings = $.extend true, {}, defaults, mashineSettings
+		
+		@state = @mashineSettings.startState
 
 		@tapes = (new Tape word for word in @mashineSettings.tapesContent)
 
@@ -44,7 +47,6 @@ root.Turing = class
 				when "R" then @tapes[i].right()
 	
 	getFunction: ->
-		#console.log @functions, @state, @functions[@state], @printTapeColumn()
 		@mashineSettings.functions[@state][@printTapeColumn()]
 
 

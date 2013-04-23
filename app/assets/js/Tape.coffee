@@ -6,11 +6,14 @@ root.Tape = class
 		@leftPart = []
 		@rightPart = @wordToArray startWord
 		@position = 0
+		@lastPosition = 0
 
 	left: ->
+		@lastPosition = @position
 		--@position
 		
 	right: ->
+		@lastPosition = @position
 		++@position
 
 	read: ->

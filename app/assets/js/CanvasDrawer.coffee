@@ -68,12 +68,13 @@ root.CanvasDrawer = class extends root.DragableWindow
 		if @settings.historySize > 0 && @history.length >= @settings.historySize * @settings.historyScale
 			# remove last
 			@history.pop()
-		@history.unshift tape.printArray()
+		@history.unshift tape
 
 	drawRow: (canvas, tape, row) ->
-		for char, x in tape
+
+		for char, x in tape.printArray()
 			if char != " "
-				@drawContentPixel canvas, x, row, char
+				@drawContentPixel canvas, x, row, char, tape.lastPosition
 			else
 				@clearPixel canvas, x,row
 				
@@ -84,7 +85,9 @@ root.CanvasDrawer = class extends root.DragableWindow
 		color = @settings.colorSettings.colorMappings[char] ? @settings.colorSettings.colorMappings.fallback
 		
 		progress = y/@settings.historySize
-	
+		
+
+
 		if progress > @settings.colorSettings.fadeTrashhold
 			@shadeColor(color, -(progress- @settings.colorSettings.fadeTrashhold)/(1-@settings.colorSettings.fadeTrashhold) * 100)
 		else 
@@ -103,8 +106,11 @@ root.CanvasDrawer = class extends root.DragableWindow
     	#"#" + (0x1000000 + (if R<255 then (if R<1 then 0 else R) else 255)*0x10000 + (if B<255 then (if B<1 then 0 else B) else 255)*0x100 + (if G<255 then (if G<1 then 0 else G) else 255)).toString(16).slice(1)
     	"rgb("+R+", "+B+", "+G+")"
 
-    drawContentPixel: (canvas, x,y, char, row) ->
-    	color = @getColorForChar char, row
+    drawContentPixel: (canvas, x,y, char, tapePosition) ->
+    	color = @getColorForChar char, y
+    	# shade if cursor is here
+    	
+    	color = @shadeColor color, @settings.colorSettings.currentPositionShade if x == tapePosition
     	switch @settings.pixelDrawMode
     		
     		when "char" then @drawCharPixel canvas, x,y, color, char

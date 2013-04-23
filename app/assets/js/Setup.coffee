@@ -16,6 +16,7 @@ root = exports ? this
 root.Setup = class
 	
 	@defaultColorSettings: ->
+		currentPositionShade: 20
 		colorMappings:
 			"0": "#FE906E"
 			"1": "#FEDC6E"

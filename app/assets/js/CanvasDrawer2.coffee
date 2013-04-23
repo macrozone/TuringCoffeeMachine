@@ -17,7 +17,7 @@ root.CanvasDrawer2 = class extends root.CanvasDrawer
 			@initCanvas()
 			@checkHistorySize()
 		@checkCanvasBounds @contentCanvas, tape.getWidth(),1
-		@drawRow @contentCanvas, tape.printArray(), 0
+		@drawRow @contentCanvas, tape, 0
 			
 
 		

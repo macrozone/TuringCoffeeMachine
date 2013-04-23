@@ -175,7 +175,7 @@ $ ->
 			11: (" ": [11, " ", "R"], "0": [12, " ", "R"])
 			12: (" ": ["end", " ", "R"], "0": [12, " ", "R"])
 		
-	setup = new SingleTapeSetup mashine: sample3
+	setup = new SingleTapeSetup mashine: multiplication
 	setup.init()
 	
 	

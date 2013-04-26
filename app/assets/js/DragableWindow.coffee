@@ -6,7 +6,7 @@ root = exports ? this
 root.DragableWindow = class
 	windowDefaults:
 		title: "Tape"
-		
+		class: "default-window"
 		colorSettings:
 			backgroundColor: "black"
 			
@@ -21,12 +21,27 @@ root.DragableWindow = class
 
 
 	initWindow: ->
-		@$window = $ '<div class="window" />'
-		$title = $("<h2 class='title'>"+@settings.title+"</h2>")
-		$title.appendTo @$window
-		@$window.appendTo $ "body"
+		@$window = $ '<div class="window '+@settings.class+'" />'
 		@$window.draggableWindow(xOffset: @settings.windowPositionX, yOffset: @settings.windowPositionY)
-
+		@$window.appendTo $ "body"
 		@$window.css "background-color", @settings.colorSettings.backgroundColor
+
+
+		@$header = $ '<div class="header" />'
+		@$header.appendTo @$window
+		$title = $("<h2 class='title'>"+@settings.title+"</h2>")	
+		$title.appendTo @$header
+		
+		$title.on "click", =>
+			@$content.toggle()
+		
+		
+		
+		
+		@$content = $ '<div class="content" />'
+		@$content.appendTo @$window
+
+	dismiss: ->
+		@$window.remove()
 		
 

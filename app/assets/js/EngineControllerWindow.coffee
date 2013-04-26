@@ -2,25 +2,28 @@
 root = exports ? this
 
 
-root.Controller = class extends root.DragableWindow
+root.EngineControllerWindow = class extends root.DragableWindow
 	
 
 	constructor: (@engine, windowSettings) ->
-		super windowSettings
+		defaults = 
+			class: "controller"
+			title: "Engine-Controller"
+		super $.extend true, {}, defaults, windowSettings
 		@engine.addHaltListener @onHalt
 		@engine.addStepListener @onStep
 
-		@$window.addClass "controller"
+	
 
 		@initButtons()
 		@initSpeed()
 
-		@$state = $("<div class='state'></div>").appendTo @$window
+		@$state = $("<div class='state'></div>").appendTo @$content
 
 
 	initButtons: ->
 		@$buttonContainer = $ "<div />"
-		@$buttonContainer.appendTo @$window
+		@$buttonContainer.appendTo @$content
 		@$playButton = $("<a class='playButton button'>▶</a>").appendTo @$buttonContainer
 
 		@$pauseButton = $("<a class='pauseButton button'> | | </a>").appendTo @$buttonContainer
@@ -42,7 +45,7 @@ root.Controller = class extends root.DragableWindow
 		speed = @engine.settings.speed
 		@$speed = $ "<input type='number' value='"+speed+"' />"
 		@$speed.appendTo $speedContainer
-		$speedContainer.appendTo @$window
+		$speedContainer.appendTo @$content
 		@$speed.on "change", => @setSpeedByWidget()
 		@$speed.on "keyup", => @setSpeedByWidget()
 

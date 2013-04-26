@@ -149,9 +149,9 @@ root.CanvasDrawer = class extends root.DragableWindow
 		@cursorCanvas.height = 0
 
 	initCanvasContainer: ->
-		@$window.append $(@cursorCanvas).addClass "cursorCanvas"
+		@$content.append $(@cursorCanvas).addClass "cursorCanvas"
 		@$canvasContainer = $ "<div class='canvasContainer' />"
-		@$canvasContainer.appendTo @$window
+		@$canvasContainer.appendTo @$content
 	
 
 

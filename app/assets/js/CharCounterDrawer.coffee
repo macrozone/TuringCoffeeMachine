@@ -17,7 +17,7 @@ root.CharCounterDrawer = class extends root.DragableWindow
 		
 		
 		@$countsContainer = $ "<div />"
-		@$countsContainer.appendTo @$window		
+		@$countsContainer.appendTo @$content		
 
 		
 

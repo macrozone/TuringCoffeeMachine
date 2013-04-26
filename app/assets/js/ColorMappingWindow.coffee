@@ -6,11 +6,13 @@ root.ColorMappingWindow = class extends root.DragableWindow
 	
 	
 	constructor: (@mapping, windowSettings) ->
-		super windowSettings
+		defaults = 
+			title: "Colors"
+		super $.extend true, {}, defaults, windowSettings
 		
 		for char, color of @mapping
 			
 			$element = $ "<span>"+char+" </span>"
 			$element.css "color", color
-			@$window.append $element
+			@$content.append $element
 		

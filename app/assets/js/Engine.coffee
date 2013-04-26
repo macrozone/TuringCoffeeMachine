@@ -27,7 +27,7 @@ root.Engine = class
 		unless @drawers[bandIndex]? 
 			@drawers[bandIndex] = []
 		@drawers[bandIndex].push drawer
-
+		drawer
 	
 
 	run: ->

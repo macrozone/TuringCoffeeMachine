@@ -56,7 +56,6 @@ root.SetupWindow = class extends root.DragableWindow
 		@$samples.on "change", =>
 			key = @$samples.val()
 			sample = @samples[key]
-			console.log sample
 			@$mashineCode.val @stringify sample
 
 		@$samples.appendTo @$content

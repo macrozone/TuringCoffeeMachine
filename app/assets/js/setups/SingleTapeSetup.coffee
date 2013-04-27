@@ -35,7 +35,6 @@ root.SingleTapeSetup = class extends root.Setup
 	constructor: (settings) ->
 	
 		settings = $.extend true, {}, @defaults, settings
-		console.log settings
 		super settings
 
 

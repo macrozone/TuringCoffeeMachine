@@ -13,6 +13,8 @@ root.DragableWindow = class
 		windowPositionX: 10
 		windowPositionY: 10
 	
+
+	
 	constructor: (settings) ->
 	
 		@settings = $.extend true, {}, @windowDefaults, settings
@@ -31,9 +33,14 @@ root.DragableWindow = class
 		@$header.appendTo @$window
 		$title = $("<h2 class='title'>"+@settings.title+"</h2>")	
 		$title.appendTo @$header
-		
+		@$window.on "mousedown", =>
+			@lastOffset = @$window.offset()
+
 		$title.on "click", =>
-			@$content.toggle()
+			# toggle only if not moved
+			offset = @$window.offset()
+			if offset.left == @lastOffset.left and offset.top == @lastOffset.top
+				@$content.toggle()
 		
 		
 		

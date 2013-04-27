@@ -9,6 +9,12 @@ root.EngineControllerWindow = class extends root.DragableWindow
 		defaults = 
 			class: "controller"
 			title: "Engine-Controller"
+			colorSettings:
+				engineStateColors:
+					"paused": "#ff69b4"
+					"invalid state": "#FFA49E"
+					"finished": "#87AAFE"
+					"running": "#87FED4"
 		super $.extend true, {}, defaults, windowSettings
 		@engine.addHaltListener @onHalt
 		@engine.addStepListener @onStep
@@ -18,7 +24,7 @@ root.EngineControllerWindow = class extends root.DragableWindow
 		@initButtons()
 		@initSpeed()
 
-		@$state = $("<div class='state'></div>").appendTo @$content
+		@$state = $("<p class='state'>ready</p>").appendTo @$content
 
 
 	initButtons: ->
@@ -55,16 +61,27 @@ root.EngineControllerWindow = class extends root.DragableWindow
 
 
 	onHalt: (fullState) =>
-		@$state.text @printFullState fullState
+		@setStateText fullState
 		@$playButton.show()
 		@$pauseButton.hide()
 
 
 	onStep: (fullState)=>
-		@$state.text @printFullState fullState
+		@setStateText fullState
 		@$pauseButton.show()
 		@$playButton.hide()
 
+	setStateText: (fullState) ->
+		state = @printFullState fullState
+		@$state.text state
+
+		@$state.css "color", @getColor fullState.engineState
+
 	printFullState: (state) ->
 		"#{state.engineState} | step: #{state.step} | state: #{state.mashineState}"
+
+	getColor: (state) ->
+		@settings.colorSettings.engineStateColors[state]
+
+
 

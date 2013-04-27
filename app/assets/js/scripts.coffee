@@ -14,6 +14,7 @@
 #= require setups/SingleTapeSetup.coffee
 #= require setups/MultiTapeSetup.coffee
 #= require setups/MultiplicationSingleTapeSetup.coffee
+#= require AboutWindow.coffee
 
 $ ->
 
@@ -158,6 +159,7 @@ $ ->
 
 
 	setupWindow = new SetupWindow
+	new AboutWindow windowPositionX: 420
 	
 	
 

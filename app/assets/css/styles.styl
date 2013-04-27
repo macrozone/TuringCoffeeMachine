@@ -30,6 +30,12 @@ a:link, a:visited { color: deeppink }
 a:focus, a:hover, a:visited:hover { color: hotpink }
 a
   cursor: pointer
+  text-decoration: none
+
+li
+  margin-left: 20px
+  list-style-type: square
+
 h1,h2,h3
   font-weight: 100
   letter-spacing: 2px
@@ -44,12 +50,14 @@ h1,h2,h3
 
 .draggableWindow
   cursor: move
-  padding: 8px
+  padding: 16px
   border: 1px solid #666
   position: absolute !important;
   .title
     text-align: center
     cursor: pointer
+  
+
 
 .canvasContainer canvas
   display: block
@@ -61,10 +69,13 @@ h1,h2,h3
     height: 300px
     font-weight: normal
     padding: 8px
-    font-family: Helvetica
+    font-family: monospace
     color: black;
-    letter-spacing: 1px
+    letter-spacing: 0px
 .controller
+  width: 320px
   input
     color: #333
     font-weight: normal
+  .state
+    margin-top: 20px

@@ -57,7 +57,7 @@ root.SetupWindow = class extends root.DragableWindow
 			key = @$samples.val()
 			sample = @samples[key]
 			console.log sample
-			@$mashineCode.val JSON.stringify sample
+			@$mashineCode.val @stringify sample
 
 		@$samples.appendTo @$content
 		@$content.append $ "<p> mashineCode (json):</p>"
@@ -65,13 +65,23 @@ root.SetupWindow = class extends root.DragableWindow
 		@$mashineCode.appendTo @$content
 		@$content.append $ "<br />"
 
-		$initButton = $ "<a class='button'>init</a>"
+		$initButton = $ "<a class='button'>Initialize / Reset Mashine</a>"
 		@$content.append $initButton
 		@$content.append $ "<br />"
 
 		$initButton.on "click", => @init()
 
 		
+	stringify: (object) ->
+		string = JSON.stringify object, undefined, 4
+		string.replace /(\[[^\]]*\])/g, (match) =>
+			@removeLineBreaksAndWhiteSpace match
+
+	removeLineBreaksAndWhiteSpace: (string) ->
+		string = string.replace /\r?\n|\r/g , ""
+		string = string.replace /\[\s*/g , "[ "
+		string = string.replace /\,\s*/g , ", "
+		string = string.replace /\s*\]/g , " ]"
 
 
 		

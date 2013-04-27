@@ -51,19 +51,21 @@ root.Setup = class
 		@destroy()
 		@turing = new Turing @settings.mashine
 		@engine = new Engine @turing
-		
+		counter = 0
 		for tapeIndex, settingArray of @settings.tapeDrawerSettings
 			for setting in settingArray
-	
+				setting.windowPositionX +=counter*320
 				@addWindow @engine.addDrawer (new CanvasDrawer2 setting), tapeIndex
+			charCounter = new CharCounterDrawer colorSettings: @settings.colorSettings,  windowPositionX: 440+counter*320, windowPositionY: 600, title: "Char-Counter Tape #{counter+1}"
+			@addWindow @engine.addDrawer charCounter, counter
+			counter++
 		
-		@addWindow @engine.addDrawer (new CharCounterDrawer colorSettings: @settings.colorSettings,  windowPositionX: 1000, windowPositionY: 600, title: "Char-Counter Tape 1"), 0
 	
 	
 
 		@addWindow new EngineControllerWindow @engine, windowPositionY: 500
 
-		@addWindow new ColorMappingWindow @settings.colorSettings.colorMappings, windowPositionX: 1000, windowPositionY: 500
+		@addWindow new ColorMappingWindow @settings.colorSettings.colorMappings, windowPositionX: 440, windowPositionY: 500
 
 		@engine.draw()
 

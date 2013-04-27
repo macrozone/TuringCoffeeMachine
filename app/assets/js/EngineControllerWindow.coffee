@@ -8,7 +8,7 @@ root.EngineControllerWindow = class extends root.DragableWindow
 	constructor: (@engine, windowSettings) ->
 		defaults = 
 			class: "controller"
-			title: "Engine-Controller"
+			title: "Controller"
 			colorSettings:
 				engineStateColors:
 					"paused": "#ff69b4"

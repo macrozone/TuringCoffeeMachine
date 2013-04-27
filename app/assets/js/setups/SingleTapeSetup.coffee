@@ -13,7 +13,7 @@ root.SingleTapeSetup = class extends root.Setup
 					scaleX: 10
 					scaleY: 10
 					colorSettings: @defaultColorSettings()
-					windowPositionX: 400
+					windowPositionX: 420
 					historyScale: 1
 					historySize: -1
 					pixelDrawMode: "char"
@@ -21,13 +21,13 @@ root.SingleTapeSetup = class extends root.Setup
 
 					title: "Tape 1 - 10x"
 					colorSettings: @defaultColorSettings()
-					windowPositionX: 700
+					windowPositionX: 980
 					historyScale: 10
 				,
 
 					title: "Tape 1 - 100x"
 					colorSettings: @defaultColorSettings()
-					windowPositionX: 1000
+					windowPositionX: 1200
 					historyScale: 100
 				]
 			]

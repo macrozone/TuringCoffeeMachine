@@ -35,6 +35,19 @@ root.SetupWindow = class extends root.DragableWindow
 				("0": [2, "0", "L"], "Y": [2, "Y", "L"], "X": [0, "X", "R"])
 				("Y": [3, "Y", "R"], " ": [4, " ", "R"])
 			]
+		"3bandtest":
+			tapesContent: [
+                "000000000000000000000111111111111111111111",
+                "XXXXXXXXXXXXXXXXXXXXXYYYYYYYYYYYYYYYYYYYYY",
+                "000000000000000000000111111111111111111111"
+            ]
+            endState: 4
+            functions: [
+                ("0X0": [1, "X0X", "RRR"], "Y1Y": [3, "Y1Y", "RRR"])
+                ("0X0": [1, "0X0", "RRR"], "Y1Y": [1, "Y1Y", "RRR"], "1Y1": [2, "Y1Y", "LLL"])
+                ("0X0": [2, "0X0", "LLL"], "Y1Y": [2, "Y1Y", "LLL"], "X0X": [0, "X0X", "RRR"])
+                ("Y1Y": [3, "Y1Y", "RRR"], "   ": [4, "   ", "RRR"])
+            ]
 
 
 

@@ -10,7 +10,7 @@ root.MultiTapeSetup = class extends root.Setup
 			scaleX: 10
 			scaleY: 10
 			colorSettings: @defaultColorSettings()
-			windowPositionX: 280
+			windowPositionX: 420
 			historyScale: 1
 			historySize: -1
 			pixelDrawMode: "char"

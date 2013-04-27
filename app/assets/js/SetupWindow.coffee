@@ -29,12 +29,12 @@ root.SetupWindow = class extends root.DragableWindow
 				"000000000000000000000000000000000000000000000000111111111111111111111111111111111111111111111111"
 			]
 			endState: 4
-			functions: [
-				("0": [1, "X", "R"], "Y": [3, "Y", "R"])
-				("0": [1, "0", "R"], "Y": [1, "Y", "R"], "1": [2, "Y", "L"])
-				("0": [2, "0", "L"], "Y": [2, "Y", "L"], "X": [0, "X", "R"])
-				("Y": [3, "Y", "R"], " ": [4, " ", "R"])
-			]
+			functions: 
+				0:("0": [1, "X", "R"], "Y": [3, "Y", "R"])
+				1:("0": [1, "0", "R"], "Y": [1, "Y", "R"], "1": [2, "Y", "L"])
+				2:("0": [2, "0", "L"], "Y": [2, "Y", "L"], "X": [0, "X", "R"])
+				3:("Y": [3, "Y", "R"], " ": [4, " ", "R"])
+			
 		"3bandtest":
 			tapesContent: [
                 "000000000000000000000111111111111111111111",
@@ -42,12 +42,12 @@ root.SetupWindow = class extends root.DragableWindow
                 "000000000000000000000111111111111111111111"
             ]
             endState: 4
-            functions: [
-                ("0X0": [1, "X0X", "RRR"], "Y1Y": [3, "Y1Y", "RRR"])
-                ("0X0": [1, "0X0", "RRR"], "Y1Y": [1, "Y1Y", "RRR"], "1Y1": [2, "Y1Y", "LLL"])
-                ("0X0": [2, "0X0", "LLL"], "Y1Y": [2, "Y1Y", "LLL"], "X0X": [0, "X0X", "RRR"])
-                ("Y1Y": [3, "Y1Y", "RRR"], "   ": [4, "   ", "RRR"])
-            ]
+            functions: 
+               0: ("0X0": [1, "X0X", "RRR"], "Y1Y": [3, "Y1Y", "RRR"])
+               1: ("0X0": [1, "0X0", "RRR"], "Y1Y": [1, "Y1Y", "RRR"], "1Y1": [2, "Y1Y", "LLL"])
+               2: ("0X0": [2, "0X0", "LLL"], "Y1Y": [2, "Y1Y", "LLL"], "X0X": [0, "X0X", "RRR"])
+               3: ("Y1Y": [3, "Y1Y", "RRR"], "   ": [4, "   ", "RRR"])
+            
 
 
 
@@ -86,7 +86,7 @@ root.SetupWindow = class extends root.DragableWindow
 		
 	stringify: (object) ->
 		string = JSON.stringify object, undefined, 4
-		string.replace /(\[[^\]]*\])/g, (match) =>
+		string.replace /(\[[^\]^\{]*\])/g, (match) =>
 			@removeLineBreaksAndWhiteSpace match
 
 	removeLineBreaksAndWhiteSpace: (string) ->

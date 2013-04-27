@@ -8,7 +8,7 @@ root.MultiplicationSingleTapeSetup = class extends root.SingleTapeSetup
 
 	constructor: (a, b, settings) ->
 
-		@mashine = 
+		@machine = 
 			tapesContent: 
 				[
 					@createUnaryTapeContent a,b, "0"
@@ -31,7 +31,7 @@ root.MultiplicationSingleTapeSetup = class extends root.SingleTapeSetup
 				12: (" ": ["end", " ", "R"], "0": [12, " ", "R"])
 
 
-		super mashine: @mashine
+		super machine: @machine
 
 
 

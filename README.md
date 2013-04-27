@@ -1,4 +1,4 @@
-# A Turing Mashine written in Coffeescript.
+# A Turing Machine written in Coffeescript.
 
 live demo:
 
@@ -13,8 +13,8 @@ It can handle multiple tapes
 
 if you have node installed you can setup this project like this
 
-1. git clone https://github.com/macrozone/TuringCoffeeMashine.git
-2. cd TuringCoffeeMashine
+1. git clone https://github.com/macrozone/TuringCoffeeMachine.git
+2. cd TuringCoffeeMachine
 3. npm install
 4. node server.js
 

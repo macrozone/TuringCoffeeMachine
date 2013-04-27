@@ -6,6 +6,15 @@ root.SetupWindow = class extends root.DragableWindow
 	
 
 	samples:
+
+		"Multiplication 3 tapes":
+			tapesContent: ["0000", "0000000", ""]
+			startState: "q0"
+			endState: "end"
+			functions:
+				"q0": ("00 ": ["q0", "000", "SRR"], "0  ": ["q1","0  ", "SLS"], " 0 ": ["end", " 0 ", "LSL"])
+				"q1": ("00 ": ["q1", "00 ", "SLS"], "0  ": ["q0", "   ", "RRS"])
+
 		"Multiplication": 
 			tapesContent: ["000000 0000"]
 			startState: 0
@@ -69,20 +78,32 @@ root.SetupWindow = class extends root.DragableWindow
 		@$samples.on "change", =>
 			key = @$samples.val()
 			sample = @samples[key]
-			@$mashineCode.val @stringify sample
+			@$machineCode.val @stringify sample
 
 		@$samples.appendTo @$content
-		@$content.append $ "<p> mashineCode (json):</p>"
-		@$mashineCode = $ "<textarea />"
-		@$mashineCode.appendTo @$content
+		@$content.append $ "<p> machineCode (json):</p>"
+		@$machineCode = $ "<textarea />"
+		@$machineCode.appendTo @$content
+		@$content.append $ "<br />"
+		$pretty = $ "<a>format</a>"
+		$pretty.on "click", => @prettyMachineCode()
+		@$content.append $pretty
 		@$content.append $ "<br />"
 
-		$initButton = $ "<a class='button'>Initialize / Reset Mashine</a>"
+		$initButton = $ "<a class='button'>Initialize / Reset Machine</a>"
 		@$content.append $initButton
 		@$content.append $ "<br />"
 
 		$initButton.on "click", => @init()
 
+	prettyMachineCode: ->
+		code = @$machineCode.val
+		code = @prettyfyJsonString code
+		@$machineCode.val code
+
+	prettyfyJsonString: (string) ->
+		object = $.parseJSON string
+		@stringify object
 		
 	stringify: (object) ->
 		string = JSON.stringify object, undefined, 4
@@ -101,15 +122,15 @@ root.SetupWindow = class extends root.DragableWindow
 	init: ->
 		@setup.destroy() if @setup?
 
-		mashineCode = $.parseJSON @$mashineCode.val()
-		numberOfTapes = mashineCode.tapesContent.length
+		machineCode = $.parseJSON @$machineCode.val()
+		numberOfTapes = machineCode.tapesContent.length
 
 
 
 		if numberOfTapes == 1 
-			@setup = new SingleTapeSetup mashine: mashineCode
+			@setup = new SingleTapeSetup machine: machineCode
 		else 
-			@setup = new MultiTapeSetup mashine: mashineCode, numberOfTapes: numberOfTapes
+			@setup = new MultiTapeSetup machine: machineCode, numberOfTapes: numberOfTapes
 
 	
 		@setup.init()

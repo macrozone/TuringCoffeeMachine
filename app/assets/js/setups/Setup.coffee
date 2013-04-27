@@ -33,7 +33,7 @@ root.Setup = class
 			2: []
 			
 
-		mashine: {}
+		machine: {}
 
 
 
@@ -49,7 +49,7 @@ root.Setup = class
 
 	init: ->
 		@destroy()
-		@turing = new Turing @settings.mashine
+		@turing = new Turing @settings.machine
 		@engine = new Engine @turing
 		counter = 0
 		for tapeIndex, settingArray of @settings.tapeDrawerSettings

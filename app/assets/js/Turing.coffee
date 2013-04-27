@@ -4,20 +4,21 @@ root = exports ? this
 root.Turing = class
 
 	
-	constructor: (mashineSettings) ->
+	constructor: (machineSettings) ->
 		defaults = 
 			startState: 0
 			endState: "end"
 			functions: []
-		@mashineSettings = $.extend true, {}, defaults, mashineSettings
+		@machineSettings = $.extend true, {}, defaults, machineSettings
 		
-		@state = @mashineSettings.startState
+		@state = @machineSettings.startState
 
-		@tapes = (new Tape word for word in @mashineSettings.tapesContent)
+		@tapes = (new Tape word for word in @machineSettings.tapesContent)
 
 	step: ->
 		
 		[@state, newTapeWord, tapeMoveWord] = @getFunction()
+		console.log @state, newTapeWord, tapeMoveWord
 		@writeTapeColumn newTapeWord
 		@moveTapes tapeMoveWord.split ""
 		@finished()
@@ -28,7 +29,10 @@ root.Turing = class
 		(tape.printArray() for tape in @tapes)
 
 	printTapeColumn: ->
-		(tape.read() ? " " for tape in @tapes).join ""
+		console.log "tape: "+i+": "+tape.read() for tape, i in @tapes
+		test = (tape.read() ? " " for tape in @tapes).join ""
+		
+		test
 
 	writeTapeColumn: (word) ->
 		for char, i in word.split ""
@@ -37,7 +41,7 @@ root.Turing = class
 			@tapes[i].write char 
 
 	finished: ->
-		@state == @mashineSettings.endState
+		@state == @machineSettings.endState
 
 
 	moveTapes: (tapeMoves) ->
@@ -45,9 +49,11 @@ root.Turing = class
 			switch move
 				when "L" then @tapes[i].left()
 				when "R" then @tapes[i].right()
+				else @tapes[i].stay()
 	
 	getFunction: ->
-		@mashineSettings.functions[@state][@printTapeColumn()]
+		console.log "tape column: "+@printTapeColumn()
+		@machineSettings.functions[@state][@printTapeColumn()]
 
 
 

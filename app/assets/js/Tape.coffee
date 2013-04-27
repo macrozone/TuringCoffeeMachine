@@ -8,6 +8,8 @@ root.Tape = class
 		@position = 0
 		@lastPosition = 0
 
+	stay: ->
+		@lastPosition = @position
 	left: ->
 		@lastPosition = @position
 		--@position
@@ -41,4 +43,10 @@ root.Tape = class
 		if char != "" then char else undefined
 
 	getWidth: ->
-		@leftPart.length + @rightPart.length
+		@getLeftWidth()+ @getRightWidth()
+
+	getLeftWidth: ->
+		@leftPart.length
+
+	getRightWidth: ->
+		@rightPart.length

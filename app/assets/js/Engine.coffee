@@ -56,7 +56,7 @@ root.Engine = class
 		
 	getFullState: ->
 		engineState: @getEngineState()
-		mashineState: @turing.state
+		machineState: @turing.state
 		step: @stepCounter
 
 

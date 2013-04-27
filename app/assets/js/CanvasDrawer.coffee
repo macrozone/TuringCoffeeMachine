@@ -25,6 +25,8 @@ root.CanvasDrawer = class extends root.DragableWindow
 
 		@counter = 0
 		@history = []
+		@cursorOffset = 0
+		@contentOffset = 0
 
 		@initCursorCanvas()
 		@initCanvasContainer()
@@ -32,12 +34,19 @@ root.CanvasDrawer = class extends root.DragableWindow
 		
 
 	draw: (tape, tapeIndex) ->
-	
+
+		if tape.position < -@cursorOffset
+			@cursorOffset = -tape.position
+		
+		@contentOffset = @cursorOffset- tape.getLeftWidth()
+		console.log "position: tape "+tapeIndex, tape
 		@drawCursor tape
 		@drawContent tape
 		@counter++
 
 	checkCanvasBounds: (canvas, width, height) ->
+	
+		
 		width *= @settings.scaleX
 		height *= @settings.scaleY
 	
@@ -48,9 +57,10 @@ root.CanvasDrawer = class extends root.DragableWindow
 
 	drawCursor: (tape) ->
 		canvas = @cursorCanvas
-		@checkCanvasBounds canvas, tape.position+1, 1
+		
+		@checkCanvasBounds canvas, @cursorOffset+tape.position+1, 1
 		@clearRow canvas, 0
-		@drawCharPixel canvas, tape.position, 0, @settings.colorSettings.cursorColor, "▼"
+		@drawCharPixel canvas, tape.position+@cursorOffset, 0, @settings.colorSettings.cursorColor, "▼"
 
 	drawContent: (tape) ->
 		canvas = @contentCanvas
@@ -73,6 +83,7 @@ root.CanvasDrawer = class extends root.DragableWindow
 	drawRow: (canvas, tape, row) ->
 
 		for char, x in tape.printArray()
+			x += @contentOffset
 			if char != " "
 				@drawContentPixel canvas, x, row, char, tape.lastPosition
 			else
@@ -110,17 +121,18 @@ root.CanvasDrawer = class extends root.DragableWindow
     	color = @getColorForChar char, y
     	# shade if cursor is here
     	
-    	color = @shadeColor color, @settings.colorSettings.currentPositionShade if x == tapePosition
+    	color = @shadeColor color, @settings.colorSettings.currentPositionShade if x == tapePosition+@cursorOffset
     	switch @settings.pixelDrawMode
     		
     		when "char" then @drawCharPixel canvas, x,y, color, char
     		else @drawPixel canvas, x,y, color
 
 	drawPixel: (canvas, x,y,color) ->
+
 		canvas.getContext("2d").fillStyle = color;
 		canvas.getContext("2d").fillRect x*@settings.scaleX+@settings.pixelPadding, y*@settings.scaleY+@settings.pixelPadding, 1*@settings.scaleX-@settings.pixelPadding, 1*@settings.scaleY-@settings.pixelPadding 
 	drawCharPixel: (canvas, x,y,color, char) ->
-	
+		
 		canvas.getContext("2d").font = @settings.scaleY+"pt monospace"
 		canvas.getContext("2d").fillStyle = color;
 		canvas.getContext("2d").fillText char, x*@settings.scaleX, (y+1)*@settings.scaleY, 1*@settings.scaleX, 1*@settings.scaleY 

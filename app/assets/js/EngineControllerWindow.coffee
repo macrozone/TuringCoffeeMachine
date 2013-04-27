@@ -78,7 +78,7 @@ root.EngineControllerWindow = class extends root.DragableWindow
 		@$state.css "color", @getColor fullState.engineState
 
 	printFullState: (state) ->
-		"#{state.engineState} | step: #{state.step} | state: #{state.mashineState}"
+		"#{state.engineState} | step: #{state.step} | state: #{state.machineState}"
 
 	getColor: (state) ->
 		@settings.colorSettings.engineStateColors[state]

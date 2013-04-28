@@ -8,7 +8,7 @@ root.SetupWindow = class extends root.DragableWindow
 	samples:
 
 		"Faculty 3 tapes":
-			tapesContent: ["000", "", ""]
+			tapesContent: ["00000", "", ""]
 			startState: "q0"
 			endState: "end"
 			functions:

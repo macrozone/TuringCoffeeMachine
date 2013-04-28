@@ -83,7 +83,7 @@ root.CanvasDrawer = class extends root.DragableWindow
 
 		for char, x in tape.printArray()
 			x += @contentOffset
-			if char != " "
+			if char?
 				@drawContentPixel canvas, x, row, char, tape.lastPosition
 			else
 				@clearPixel canvas, x,row
@@ -95,8 +95,6 @@ root.CanvasDrawer = class extends root.DragableWindow
 		color = @settings.colorSettings.colorMappings[char] ? @settings.colorSettings.colorMappings.fallback
 		
 		progress = y/@settings.historySize
-		
-
 
 		if progress > @settings.colorSettings.fadeTrashhold
 			@shadeColor(color, -(progress- @settings.colorSettings.fadeTrashhold)/(1-@settings.colorSettings.fadeTrashhold) * 100)

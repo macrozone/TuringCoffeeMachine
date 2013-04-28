@@ -31,7 +31,10 @@ root.Tape = class
 			@rightPart[@position] = char
 
 	print: ->
-		@leftPart.reverse().join("")+@rightPart.join("")
+		string = ""
+		for char in @printArray()
+			string += char ? " "
+		string
 
 	printArray: ->
 		@leftPart.reverse().concat @rightPart
@@ -40,7 +43,7 @@ root.Tape = class
 		(@sanitizeChar char for char in word.split "")
 
 	sanitizeChar: (char) ->
-		if char != "" then char else undefined
+		if char != " " then char else undefined
 
 	getWidth: ->
 		@getLeftWidth()+ @getRightWidth()

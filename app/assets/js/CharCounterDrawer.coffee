@@ -24,15 +24,16 @@ root.CharCounterDrawer = class extends root.DragableWindow
 	draw: (tape, tapeIndex) ->
 		counts = {}
 		for char in tape.printArray()
-			counts[char] = 0 unless counts[char]? 
-			counts[char]++
+			if char?
+				counts[char] = 0 unless counts[char]? 
+				counts[char]++
 		@drawCounts counts
 		
 
 	drawCounts: (counts) ->
 		@$countsContainer.empty()
 		for char, count of counts
-			unless char == " "
+			if char?
 				$entry = $ "<p>#{char}: #{count}</p>"
 				$entry.css "color", @getColorForChar char
 				@$countsContainer.append $entry

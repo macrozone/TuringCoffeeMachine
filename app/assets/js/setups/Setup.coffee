@@ -61,7 +61,7 @@ root.Setup = class
 			counter++
 		
 	
-	
+		#@engine.addDrawer new ConsoleDrawer, 0
 
 		@addWindow new EngineControllerWindow @engine, windowPositionY: 520
 

@@ -97,7 +97,8 @@ root.SetupWindow = class extends root.DragableWindow
 		$initButton.on "click", => @init()
 
 	prettyMachineCode: ->
-		code = @$machineCode.val
+		code = @$machineCode.val()
+		console.log code
 		code = @prettyfyJsonString code
 		@$machineCode.val code
 
@@ -106,7 +107,7 @@ root.SetupWindow = class extends root.DragableWindow
 		@stringify object
 		
 	stringify: (object) ->
-		string = JSON.stringify object, undefined, 4
+		string = JSON.stringify object, undefined, 2
 		string.replace /(\[[^\]^\{]*\])/g, (match) =>
 			@removeLineBreaksAndWhiteSpace match
 

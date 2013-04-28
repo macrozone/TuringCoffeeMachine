@@ -12,11 +12,11 @@ root.SetupWindow = class extends root.DragableWindow
 			startState: "q0"
 			endState: "end"
 			functions:
-				"q0": ("00 ": ["q0", "000", "SRR"], "0  ": ["q1","0  ", "SLS"], " 0 ": ["end", " 0 ", "LSL"])
+				"q0": ("00 ": ["q0", "000", "SRR"], "0  ": ["q1","0  ", "SLS"], " 0 ": ["end", " 0 ", "SLS"])
 				"q1": ("00 ": ["q1", "00 ", "SLS"], "0  ": ["q0", "   ", "RRS"])
 
 		"Multiplication": 
-			tapesContent: ["000000 0000"]
+			tapesContent: ["0000 0000000"]
 			startState: 0
 			endState: "end"
 			functions: 

@@ -23,9 +23,13 @@ root.EngineControllerWindow = class extends root.DragableWindow
 
 		@initButtons()
 		@initSpeed()
-
-		@$state = $("<p class='state'>ready</p>").appendTo @$content
-
+		
+		
+		@$state = $("<div class='state'></div>").appendTo @$content
+		@$previousFunction = $("<span class='function previous'></span>").appendTo $("<p><span class='label'>Previous:</span></p>").appendTo @$state
+		@$stateText = $("<span class='stateText'>ready</span>").appendTo $("<p><span class='label'></span></p>").appendTo @$state
+		@$nextFunction = $("<span class='function next'></span>").appendTo $("<p><span class='label'>Next:</span></p>").appendTo @$state
+		@setFunctionTexts()
 
 	initButtons: ->
 		@$buttonContainer = $ "<div />"
@@ -46,12 +50,12 @@ root.EngineControllerWindow = class extends root.DragableWindow
 			@engine.pause()
 			@engine.step()
 	initSpeed: ->
-		$speedContainer = $ "<div class='speedControl' />"
-		$speedContainer.append "<label>Speed: </label>"
+		
+		@$buttonContainer.append "<label>Speed: </label>"
 		speed = @engine.settings.speed
 		@$speed = $ "<input type='number' value='"+speed+"' />"
-		@$speed.appendTo $speedContainer
-		$speedContainer.appendTo @$content
+		@$speed.appendTo @$buttonContainer
+		
 		@$speed.on "change", => @setSpeedByWidget()
 		@$speed.on "keyup", => @setSpeedByWidget()
 
@@ -67,18 +71,37 @@ root.EngineControllerWindow = class extends root.DragableWindow
 
 
 	onStep: (fullState)=>
+		@setFunctionTexts()
 		@setStateText fullState
 		@$pauseButton.show()
 		@$playButton.hide()
 
 	setStateText: (fullState) ->
 		state = @printFullState fullState
-		@$state.text state
+		@$stateText.text state
 
-		@$state.css "color", @getColor fullState.engineState
+		@$stateText.css "color", @getColor fullState.engineState
 
 	printFullState: (state) ->
 		"#{state.engineState} | step: #{state.step} | state: #{state.machineState}"
+
+	setFunctionTexts: ->
+		@setPreviousFunctionText()
+		@setNextFunctionText()
+	setPreviousFunctionText: ->
+		@$previousFunction.text @$nextFunction.text()
+
+	setNextFunctionText: ->
+		@$nextFunction.text @getFunctionText()
+
+	getFunctionText: ->
+		try
+			state = @engine.turing.state
+			currentFunction = @engine.turing.getFunction()
+			tapeWord = @engine.turing.printTapeColumn()
+			"(#{state},\"#{tapeWord}\") -> (#{currentFunction[0]},\"#{currentFunction[1]}\",#{currentFunction[2]})"
+		catch e
+			""
 
 	getColor: (state) ->
 		@settings.colorSettings.engineStateColors[state]

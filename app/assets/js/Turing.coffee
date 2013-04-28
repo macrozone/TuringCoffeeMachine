@@ -52,7 +52,6 @@ root.Turing = class
 				else @tapes[i].stay()
 	
 	getFunction: ->
-		console.log "tape column: "+@printTapeColumn()
 		@machineSettings.functions[@state][@printTapeColumn()]
 
 

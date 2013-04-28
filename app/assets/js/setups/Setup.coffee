@@ -63,7 +63,7 @@ root.Setup = class
 	
 	
 
-		@addWindow new EngineControllerWindow @engine, windowPositionY: 500
+		@addWindow new EngineControllerWindow @engine, windowPositionY: 520
 
 		@addWindow new ColorMappingWindow @settings.colorSettings.colorMappings, windowPositionX: 440, windowPositionY: 500
 

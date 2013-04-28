@@ -13,14 +13,14 @@ root.SetupWindow = class extends root.DragableWindow
 			endState: "end"
 			functions:
 				# t2 = t1 -1
-				"q0": ("0  ": ["q1", "0  ", "RRS"])
+				"q0": ("0  ": ["q1", "0  ", "RRS"], "   ": ["end", "0  ", "SSS"])
 				"q1": ("0  ": ["q1", "00 ", "RRS"], "   ": ["q2", "   ", "LLS"])
 				"q2": ("00 ": ["q2", "00 ", "LLS"], "0  ": ["q3", "0  ", "SRS"])
 
 
 
 				# multiplication t1 * t2 -> t3
-				"q3": ("00 ": ["q3", "000", "SRR"], "0  ": ["q4", "0  ", "SLS"], " 0 ": ["q9", "   ", "SRS"])
+				"q3": ("00 ": ["q3", "000", "SRR"], "0  ": ["q4", "0  ", "SLS"], " 0 ": ["q9", "   ", "SRS"], "   ": ["end", "0  ", "SSS"])
 				"q4": ("00 ": ["q4", "00 ", "SLS"], "0  ": ["q3", "   ", "RRS"])
 
 				# multiplication t3 * t2 -> t1
@@ -33,7 +33,7 @@ root.SetupWindow = class extends root.DragableWindow
 				"q8": (" 0 ": ["rewind", " 0 ", "LLS"], "   ": ["end", "   ", "SRS"])
 
 				# check if tape 2 greater then (from other state)
-				"q9": (" 0 ": ["q10", " 0 ", "SRS"])
+				"q9": (" 0 ": ["q10", " 0 ", "SRS"], "   ": ["end", "   ", "SSS"])
 				"q10": (" 0 ": ["q5", " 0 ", "SLL"], "   ": ["end", "   ", "SRS"])
 
 				# rewind t1

@@ -39,7 +39,6 @@ root.CanvasDrawer = class extends root.DragableWindow
 			@cursorOffset = -tape.position
 		
 		@contentOffset = @cursorOffset- tape.getLeftWidth()
-		console.log "position: tape "+tapeIndex, tape
 		@drawCursor tape
 		@drawContent tape
 		@counter++

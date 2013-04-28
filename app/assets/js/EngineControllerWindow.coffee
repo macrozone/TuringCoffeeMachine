@@ -95,13 +95,17 @@ root.EngineControllerWindow = class extends root.DragableWindow
 		@$nextFunction.text @getFunctionText()
 
 	getFunctionText: ->
-		try
+		
 			state = @engine.turing.state
-			currentFunction = @engine.turing.getFunction()
 			tapeWord = @engine.turing.printTapeColumn()
-			"(#{state},\"#{tapeWord}\") -> (#{currentFunction[0]},\"#{currentFunction[1]}\",#{currentFunction[2]})"
-		catch e
-			""
+			try
+				currentFunction = @engine.turing.getFunction()
+				"(#{state},\"#{tapeWord}\") -> (#{currentFunction[0]},\"#{currentFunction[1]}\",#{currentFunction[2]})"
+			catch e
+				"(#{state},\"#{tapeWord}\") -> ???"
+
+			
+		
 
 	getColor: (state) ->
 		@settings.colorSettings.engineStateColors[state]

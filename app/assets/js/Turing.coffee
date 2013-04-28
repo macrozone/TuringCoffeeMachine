@@ -18,21 +18,18 @@ root.Turing = class
 	step: ->
 		
 		[@state, newTapeWord, tapeMoveWord] = @getFunction()
-		console.log @state, newTapeWord, tapeMoveWord
 		@writeTapeColumn newTapeWord
 		@moveTapes tapeMoveWord.split ""
 		@finished()
 	
 	printAll: ->
 		(tape.print() for tape in @tapes)
+		
 	printAllAsArrays: ->
 		(tape.printArray() for tape in @tapes)
 
 	printTapeColumn: ->
-		console.log "tape: "+i+": "+tape.read() for tape, i in @tapes
-		test = (tape.read() ? " " for tape in @tapes).join ""
-		
-		test
+		(tape.read() ? " " for tape in @tapes).join ""
 
 	writeTapeColumn: (word) ->
 		for char, i in word.split ""

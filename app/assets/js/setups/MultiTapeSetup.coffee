@@ -30,11 +30,6 @@ root.MultiTapeSetup = class extends root.Setup
 			defaults.tapeDrawerSettings.push [setting]
 
 		settings = $.extend true, {}, defaults, settings
-		console.log settings
-		
-
-		
-
 		super settings
 
 

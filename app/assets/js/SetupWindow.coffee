@@ -7,12 +7,45 @@ root.SetupWindow = class extends root.DragableWindow
 
 	samples:
 
+		"Faculty 3 tapes":
+			tapesContent: ["000", "", ""]
+			startState: "q0"
+			endState: "end"
+			functions:
+				# t2 = t1 -1
+				"q0": ("0  ": ["q1", "0  ", "RRS"])
+				"q1": ("0  ": ["q1", "00 ", "RRS"], "   ": ["q2", "   ", "LLS"])
+				"q2": ("00 ": ["q2", "00 ", "LLS"], "0  ": ["q3", "0  ", "SRS"])
+
+
+
+				# multiplication t1 * t2 -> t3
+				"q3": ("00 ": ["q3", "000", "SRR"], "0  ": ["q4", "0  ", "SLS"], " 0 ": ["q9", "   ", "SRS"])
+				"q4": ("00 ": ["q4", "00 ", "SLS"], "0  ": ["q3", "   ", "RRS"])
+
+				# multiplication t3 * t2 -> t1
+				"q5": (" 00": ["q5", "000", "RRS"], "  0": ["q6", "  0", "SLS"], " 0 ": ["q7", "   ", "SRS"])
+				"q6": (" 00": ["q6", " 00", "SLS"], "  0": ["q5", "   ", "SRL"])
+				
+
+				# check if tape 2 greater then 1
+				"q7": (" 0 ": ["q8", " 0 ", "SRS"])
+				"q8": (" 0 ": ["rewind", " 0 ", "LLS"], "   ": ["end", "   ", "SRS"])
+
+				# check if tape 2 greater then (from other state)
+				"q9": (" 0 ": ["q10", " 0 ", "SRS"])
+				"q10": (" 0 ": ["q5", " 0 ", "SLL"], "   ": ["end", "   ", "SRS"])
+
+				# rewind t1
+				"rewind": ("00 ": ["rewind", "00 ", "LSS"], " 0 ": ["q3", " 0 ", "RSS"])
+
+
 		"Multiplication 3 tapes":
 			tapesContent: ["0000", "0000000", ""]
 			startState: "q0"
 			endState: "end"
 			functions:
-				"q0": ("00 ": ["q0", "000", "SRR"], "0  ": ["q1","0  ", "SLS"], " 0 ": ["end", " 0 ", "SLS"])
+				"q0": ("00 ": ["q0", "000", "SRR"], "0  ": ["q1","0  ", "SLS"], " 0 ": ["end", " 0 ", "SLS"] , "   ": ["end", "   ", "SLS"])
 				"q1": ("00 ": ["q1", "00 ", "SLS"], "0  ": ["q0", "   ", "RRS"])
 
 		"Multiplication": 

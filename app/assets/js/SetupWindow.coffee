@@ -91,21 +91,17 @@ root.SetupWindow = class extends root.DragableWindow
                3: ("Y1Y": [3, "Y1Y", "RRR"], "   ": [4, "   ", "RRR"])
             
 
-
-
 	constructor: (@engine, windowSettings) ->
 		defaults = 
 			class: "setup"
 			title: "Setup"
 		super $.extend true, {}, defaults, windowSettings
 
-		
 		@$setupChoser = {}
 	
 		@$samples = $ "<select></select>"
 		@$samples.append "<option>Samples</option>" 
 		for key of @samples
-	
 			@$samples.append "<option value='"+key+"''>"+key+"</option>" 
 
 		@$samples.on "change", =>
@@ -131,7 +127,6 @@ root.SetupWindow = class extends root.DragableWindow
 
 	prettyMachineCode: ->
 		code = @$machineCode.val()
-		console.log code
 		code = @prettyfyJsonString code
 		@$machineCode.val code
 
@@ -150,15 +145,13 @@ root.SetupWindow = class extends root.DragableWindow
 		string = string.replace /\,\s*/g , ", "
 		string = string.replace /\s*\]/g , " ]"
 
-
-		
+	
 
 	init: ->
 		@setup.destroy() if @setup?
 
 		machineCode = $.parseJSON @$machineCode.val()
 		numberOfTapes = machineCode.tapesContent.length
-
 
 
 		if numberOfTapes == 1 

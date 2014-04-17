@@ -1,5 +1,5 @@
 #!/bin/bash
 
 export NODE_ENV=production
-export PORT=8005
+export PORT=8050
 forever start server.js
